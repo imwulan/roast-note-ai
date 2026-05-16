@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Toaster } from "sonner";
-import { ChevronDown, Coffee, Quote } from "lucide-react";
+import { ChevronDown, Coffee, Quote, ArrowRight } from "lucide-react";
 import { CaptionGenerator } from "@/components/CaptionGenerator";
 import heroCoffee from "@/assets/hero-coffee.jpg";
 import pastries from "@/assets/pastries.jpg";
@@ -27,42 +27,27 @@ export const Route = createFileRoute("/")({
 });
 
 const presets = [
-  {
-    name: "Scandinavian Minimal",
-    note: "Sparse, sensory, quietly confident. White-walled rooms and ceramics.",
-  },
-  {
-    name: "Parisian Luxury",
-    note: "Editorial, romantic, considered. Lower-case headlines and slow vowels.",
-  },
-  {
-    name: "Urban Roaster",
-    note: "Direct, ingredient-led, third-wave. Talks about origin, not vibes.",
-  },
-  {
-    name: "Warm Artisan",
-    note: "Hand-written warmth. Sourdough, linen, neighbourhood regulars.",
-  },
+  { name: "Scandinavian Minimal", note: "Sparse, sensory, quietly confident. White-walled rooms and ceramics." },
+  { name: "Parisian Luxury", note: "Editorial, romantic, considered. Lower-case headlines and slow vowels." },
+  { name: "Urban Roaster", note: "Direct, ingredient-led, third-wave. Talks about origin, not vibes." },
+  { name: "Warm Artisan", note: "Hand-written warmth. Sourdough, linen, neighbourhood regulars." },
 ];
 
 const samples = [
   {
     voice: "Scandinavian Minimal",
     item: "Cardamom Bun",
-    text:
-      "Folded slowly, baked late. Cardamom in the laminate, honey on the crust. It pairs well with a quiet morning.",
+    text: "Folded slowly, baked late. Cardamom in the laminate, honey on the crust. It pairs well with a quiet morning.",
   },
   {
     voice: "Parisian Luxury",
     item: "Vanilla Cortado",
-    text:
-      "A small, ceremonial cup. Espresso pulled long, milk warmed not hot — finished with a thread of madagascar vanilla.",
+    text: "A small, ceremonial cup. Espresso pulled long, milk warmed not hot — finished with a thread of madagascar vanilla.",
   },
   {
     voice: "Urban Roaster",
     item: "Ethiopia Guji V60",
-    text:
-      "Single origin. Natural process. Bergamot, stonefruit, a finish like jasmine tea. Brewed 1:16, no notes.",
+    text: "Single origin. Natural process. Bergamot, stonefruit, a finish like jasmine tea. Brewed 1:16, no notes.",
   },
 ];
 
@@ -85,28 +70,71 @@ const faqs = [
   },
 ];
 
-function Nav() {
+function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2">
+    <span className="inline-flex items-center text-[10px] font-medium uppercase tracking-[0.32em] text-roast">
+      <span className="mr-3 inline-block h-px w-7 bg-roast/60" />
+      {children}
+    </span>
+  );
+}
+
+function Nav() {
+  const [open, setOpen] = useState(false);
+  return (
+    <header className="sticky top-0 z-30 border-b border-border/40 bg-background/75 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+        <a href="#top" className="flex items-center gap-2.5">
           <Coffee className="h-4 w-4 text-roast" />
           <span className="font-serif text-xl tracking-tight">RoastNote</span>
         </a>
-        <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-          <a className="hover:text-foreground transition-colors" href="#presets">Voice</a>
-          <a className="hover:text-foreground transition-colors" href="#generator">Generator</a>
-          <a className="hover:text-foreground transition-colors" href="#samples">Samples</a>
-          <a className="hover:text-foreground transition-colors" href="#pricing">Pricing</a>
-          <a className="hover:text-foreground transition-colors" href="#faq">FAQ</a>
+        <nav className="hidden items-center gap-9 text-sm text-muted-foreground md:flex">
+          <a className="transition-colors hover:text-foreground" href="#presets">Voice</a>
+          <a className="transition-colors hover:text-foreground" href="#generator">Generator</a>
+          <a className="transition-colors hover:text-foreground" href="#samples">Samples</a>
+          <a className="transition-colors hover:text-foreground" href="#pricing">Pricing</a>
+          <a className="transition-colors hover:text-foreground" href="#faq">FAQ</a>
         </nav>
         <a
           href="#generator"
-          className="hidden md:inline-flex h-9 items-center rounded-md bg-primary px-4 text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground hover:bg-espresso transition-colors"
+          className="hidden h-10 items-center rounded-full bg-primary px-5 text-[12px] font-medium tracking-wide text-primary-foreground transition-all hover:bg-espresso md:inline-flex"
         >
-          Try it
+          Try the generator
         </a>
+        <button
+          aria-label="Menu"
+          onClick={() => setOpen((o) => !o)}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border md:hidden"
+        >
+          <span className="sr-only">Toggle menu</span>
+          <div className="flex flex-col gap-[3px]">
+            <span className="block h-px w-4 bg-foreground" />
+            <span className="block h-px w-4 bg-foreground" />
+          </div>
+        </button>
       </div>
+      {open && (
+        <div className="border-t border-border/60 bg-background md:hidden">
+          <nav className="mx-auto flex max-w-6xl flex-col px-5 py-3 text-sm">
+            {[
+              ["Voice", "#presets"],
+              ["Generator", "#generator"],
+              ["Samples", "#samples"],
+              ["Pricing", "#pricing"],
+              ["FAQ", "#faq"],
+            ].map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="border-b border-border/40 py-3 text-muted-foreground transition-colors last:border-0 hover:text-foreground"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -114,33 +142,41 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pt-16 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-24 lg:pb-28">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pt-14 pb-20 sm:px-8 sm:pt-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-28 lg:pb-32">
         <div className="fade-up">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-cream px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-roast">
-            <span className="h-1 w-1 rounded-full bg-roast" />
-            AI brand voice engine
-          </span>
-          <h1 className="mt-6 font-serif text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Your café deserves a voice people remember.
+          <Eyebrow>AI brand voice engine</Eyebrow>
+          <h1 className="mt-7 font-serif text-[40px] leading-[1.04] tracking-[-0.02em] text-foreground sm:text-6xl lg:text-[76px]">
+            Your café deserves a voice people
+            <span className="italic text-roast"> remember.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Generate premium social captions inspired by modern coffee branding trends from top cafés in the US &amp; Europe — without sounding like a generic AI tool.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
             <a
               href="#generator"
-              className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-7 text-sm font-medium uppercase tracking-[0.18em] text-primary-foreground transition-all hover:bg-espresso"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)]"
             >
-              Generate Your First Caption
+              Generate your first caption
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#samples" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              See sample outputs &rarr;
+            <a
+              href="#samples"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-background/60 px-6 text-[13px] text-foreground transition-colors hover:bg-secondary"
+            >
+              See sample outputs
             </a>
+          </div>
+
+          <div className="mt-12 flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+            <span>Est. 2026</span>
+            <span className="h-px w-8 bg-border" />
+            <span>Brewed for cafés</span>
           </div>
         </div>
 
         <div className="relative">
-          <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-sm">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] border border-border/70 bg-cream shadow-[var(--shadow-cup)] grain">
             <img
               src={heroCoffee}
               alt="Artisan flat white in a handmade ceramic cup beside dried wheat and coffee beans"
@@ -148,13 +184,21 @@ function Hero() {
               height={1280}
               className="h-full w-full object-cover"
             />
+            <div className="pointer-events-none absolute inset-0 vignette" />
           </div>
-          <div className="absolute -bottom-6 -left-6 hidden max-w-[280px] rounded-xl border border-border bg-cream p-5 shadow-sm md:block">
+          <div className="absolute -bottom-7 -left-4 hidden max-w-[280px] rounded-2xl border border-border/70 bg-cream/95 p-5 shadow-[var(--shadow-lift)] backdrop-blur md:block">
             <Quote className="h-4 w-4 text-roast" />
-            <p className="mt-2 font-serif text-base leading-snug">
+            <p className="mt-3 font-serif text-[17px] leading-snug">
               "Folded slowly, baked late. Cardamom in the laminate, honey on the crust."
             </p>
-            <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Scandinavian Minimal · IG</p>
+            <p className="mt-3 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              Scandinavian Minimal · IG
+            </p>
+          </div>
+          <div className="absolute -right-3 -top-3 hidden h-20 w-20 items-center justify-center rounded-full border border-border/70 bg-background/90 backdrop-blur md:flex">
+            <span className="font-serif text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              N°01
+            </span>
           </div>
         </div>
       </div>
@@ -164,14 +208,16 @@ function Hero() {
 
 function Presets() {
   return (
-    <section id="presets" className="border-t border-border bg-cream/40">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="mb-14 max-w-2xl">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-roast">Brand voice presets</span>
-          <h2 className="mt-3 font-serif text-4xl tracking-tight sm:text-5xl">
-            Four voices, each tuned to a kind of café.
-          </h2>
-          <p className="mt-4 text-muted-foreground">
+    <section id="presets" className="border-t border-border/60 bg-cream/50">
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mb-14 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end">
+          <div>
+            <Eyebrow>Brand voice presets</Eyebrow>
+            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+              Four voices, each tuned to a <span className="italic text-roast">kind of café.</span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
             Curated from the cafés we admire — not from a list of buzzwords. Choose one and every caption is written in that register.
           </p>
         </div>
@@ -179,10 +225,13 @@ function Presets() {
           {presets.map((p, i) => (
             <div
               key={p.name}
-              className="group relative flex flex-col rounded-xl border border-border bg-background p-6 transition-all hover:border-roast/60 hover:-translate-y-0.5"
+              className="group relative flex flex-col rounded-2xl border border-border/70 bg-background p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
             >
-              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">0{i + 1}</span>
-              <h3 className="mt-4 font-serif text-2xl text-foreground">{p.name}</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-serif text-sm italic text-muted-foreground">N°0{i + 1}</span>
+                <span className="h-1 w-1 rounded-full bg-roast/70 transition-all group-hover:w-6" />
+              </div>
+              <h3 className="mt-6 font-serif text-[26px] leading-tight text-foreground">{p.name}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.note}</p>
             </div>
           ))}
@@ -194,14 +243,14 @@ function Presets() {
 
 function GeneratorSection() {
   return (
-    <section id="generator" className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="mb-12 max-w-2xl">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-roast">The generator</span>
-          <h2 className="mt-3 font-serif text-4xl tracking-tight sm:text-5xl">
-            Built for the rhythm of a café day.
+    <section id="generator" className="border-t border-border/60">
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mb-14 max-w-2xl">
+          <Eyebrow>The generator</Eyebrow>
+          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            Built for the rhythm of a <span className="italic text-roast">café day.</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
             Pick a voice, drop in today's pastry or pour-over, and get a complete caption set — main copy, short CTA, hashtags, and a story-sized overlay.
           </p>
         </div>
@@ -213,11 +262,11 @@ function GeneratorSection() {
 
 function Samples() {
   return (
-    <section id="samples" className="border-t border-border bg-cream/40">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-          <div>
-            <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-border">
+    <section id="samples" className="border-t border-border/60 bg-cream/50">
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
+          <div className="relative">
+            <div className="aspect-[4/5] overflow-hidden rounded-[20px] border border-border/70 shadow-[var(--shadow-cup)]">
               <img
                 src={pastries}
                 alt="Pistachio croissant, sourdough loaf and an espresso on warm linen"
@@ -229,17 +278,24 @@ function Samples() {
             </div>
           </div>
           <div>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-roast">Sample outputs</span>
-            <h2 className="mt-3 font-serif text-4xl tracking-tight sm:text-5xl">Captions, the way good cafés write them.</h2>
-            <div className="mt-10 flex flex-col gap-5">
+            <Eyebrow>Sample outputs</Eyebrow>
+            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+              Captions, the way <span className="italic text-roast">good cafés</span> write them.
+            </h2>
+            <div className="mt-10 flex flex-col gap-4">
               {samples.map((s) => (
-                <div key={s.item} className="rounded-xl border border-border bg-background p-6">
-                  <div className="mb-3 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                <figure
+                  key={s.item}
+                  className="rounded-2xl border border-border/70 bg-background p-6 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
+                >
+                  <div className="mb-4 flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
                     <span>{s.voice}</span>
                     <span>{s.item}</span>
                   </div>
-                  <p className="font-serif text-xl leading-snug text-foreground">{s.text}</p>
-                </div>
+                  <blockquote className="font-serif text-[20px] leading-snug text-foreground sm:text-[22px]">
+                    {s.text}
+                  </blockquote>
+                </figure>
               ))}
             </div>
           </div>
@@ -278,40 +334,52 @@ const tiers = [
 
 function Pricing() {
   return (
-    <section id="pricing" className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-20">
+    <section id="pricing" className="border-t border-border/60">
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
         <div className="mb-14 max-w-2xl">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-roast">Pricing</span>
-          <h2 className="mt-3 font-serif text-4xl tracking-tight sm:text-5xl">Honest pricing. Like a good menu.</h2>
+          <Eyebrow>Pricing</Eyebrow>
+          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            Honest pricing. <span className="italic text-roast">Like a good menu.</span>
+          </h2>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`flex flex-col rounded-2xl border p-8 transition-all ${
+              className={`relative flex flex-col rounded-3xl border p-8 transition-all duration-300 sm:p-9 ${
                 t.featured
-                  ? "border-roast bg-primary text-primary-foreground"
-                  : "border-border bg-background hover:border-roast/50"
+                  ? "border-roast/40 bg-primary text-primary-foreground shadow-[var(--shadow-cup)]"
+                  : "border-border/70 bg-background hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
               }`}
             >
+              {t.featured && (
+                <span className="absolute -top-3 left-8 inline-flex items-center rounded-full border border-roast/40 bg-cream px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-foreground">
+                  Most loved
+                </span>
+              )}
               <div className="flex items-baseline justify-between">
-                <h3 className="font-serif text-2xl">{t.name}</h3>
+                <h3 className="font-serif text-[28px]">{t.name}</h3>
                 <div>
-                  <span className="font-serif text-4xl">${t.price}</span>
-                  <span className={`ml-1 text-xs ${t.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>/mo</span>
+                  <span className="font-serif text-[42px] leading-none">${t.price}</span>
+                  <span className={`ml-1 text-xs ${t.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                    /mo
+                  </span>
                 </div>
               </div>
-              <p className={`mt-2 text-sm ${t.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{t.desc}</p>
-              <ul className="mt-7 flex flex-col gap-3 text-sm">
+              <p className={`mt-3 text-sm ${t.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                {t.desc}
+              </p>
+              <div className={`my-7 h-px ${t.featured ? "bg-primary-foreground/15" : "bg-border"}`} />
+              <ul className="flex flex-col gap-3.5 text-[14px]">
                 {t.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
+                  <li key={f} className="flex items-start gap-3">
                     <span className={`mt-2 h-1 w-1 shrink-0 rounded-full ${t.featured ? "bg-primary-foreground/70" : "bg-roast"}`} />
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
               <button
-                className={`mt-8 inline-flex h-11 items-center justify-center rounded-md px-6 text-xs font-medium uppercase tracking-[0.18em] transition-colors ${
+                className={`mt-10 inline-flex h-11 items-center justify-center rounded-full px-6 text-[12px] font-medium tracking-wide transition-all ${
                   t.featured
                     ? "bg-background text-foreground hover:bg-cream"
                     : "border border-border bg-background text-foreground hover:bg-secondary"
@@ -330,27 +398,33 @@ function Pricing() {
 function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="border-t border-border bg-cream/40">
-      <div className="mx-auto max-w-3xl px-6 py-20">
-        <div className="mb-12 text-center">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-roast">Frequently asked</span>
-          <h2 className="mt-3 font-serif text-4xl tracking-tight sm:text-5xl">Questions, answered slowly.</h2>
+    <section id="faq" className="border-t border-border/60 bg-cream/50">
+      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mb-14 text-center">
+          <Eyebrow>Frequently asked</Eyebrow>
+          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            Questions, answered <span className="italic text-roast">slowly.</span>
+          </h2>
         </div>
-        <div className="divide-y divide-border border-y border-border">
+        <div className="divide-y divide-border/60 border-y border-border/60">
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
               <button
                 key={f.q}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="block w-full py-6 text-left transition-colors hover:bg-background/50"
+                className="block w-full py-6 text-left transition-colors hover:bg-background/40 sm:py-7"
               >
-                <div className="flex items-center justify-between gap-6 px-2">
-                  <span className="font-serif text-xl text-foreground">{f.q}</span>
-                  <ChevronDown className={`h-4 w-4 shrink-0 text-roast transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                <div className="flex items-center justify-between gap-6 px-1">
+                  <span className="font-serif text-[20px] leading-snug text-foreground sm:text-[22px]">{f.q}</span>
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 text-roast transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                  />
                 </div>
                 {isOpen && (
-                  <p className="mt-3 px-2 text-sm leading-relaxed text-muted-foreground fade-up">{f.a}</p>
+                  <p className="mt-4 max-w-2xl px-1 text-[15px] leading-relaxed text-muted-foreground fade-up">
+                    {f.a}
+                  </p>
                 )}
               </button>
             );
@@ -363,17 +437,27 @@ function Faq() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2">
-          <Coffee className="h-4 w-4 text-roast" />
-          <span className="font-serif text-lg">RoastNote</span>
-          <span className="ml-3 text-xs text-muted-foreground">© {new Date().getFullYear()} — Brewed for cafés.</span>
+    <footer className="border-t border-border/60">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 sm:py-14 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <Coffee className="h-4 w-4 text-roast" />
+            <span className="font-serif text-2xl">RoastNote</span>
+          </div>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            A premium coffee brand that happens to use AI. Built quietly for the cafés we love.
+          </p>
         </div>
-        <div className="flex items-center gap-6 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
           <a href="#presets" className="hover:text-foreground transition-colors">Voice</a>
+          <a href="#generator" className="hover:text-foreground transition-colors">Generator</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
           <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+        </div>
+      </div>
+      <div className="border-t border-border/60">
+        <div className="mx-auto max-w-6xl px-5 py-5 text-[11px] uppercase tracking-[0.24em] text-muted-foreground sm:px-8">
+          © {new Date().getFullYear()} RoastNote — Brewed for cafés.
         </div>
       </div>
     </footer>
@@ -383,7 +467,7 @@ function Footer() {
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Toaster position="bottom-right" richColors />
+      <Toaster position="bottom-right" richColors closeButton />
       <Nav />
       <main>
         <Hero />
