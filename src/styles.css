@@ -35,6 +35,9 @@
   --color-roast: var(--roast);
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-cup: var(--shadow-cup);
 }
 
 :root {
