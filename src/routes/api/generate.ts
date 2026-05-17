@@ -41,22 +41,48 @@ export const Route = createFileRoute("/api/generate")({
         }
 
         const gateway = createLovableAiGatewayProvider(apiKey);
-        const model = gateway("google/gemini-3-flash-preview");
+        const model = gateway("openai/gpt-5-mini");
 
-        const system = `You are RoastNote — a premium AI brand voice engine for independent coffee shops, cafés, and artisan bakeries. You write social copy that feels like premium coffee branding: editorial, considered, sensory, never cliché. Avoid emojis unless the brand voice clearly calls for one. Avoid generic startup or hustle language. No exclamation points unless the brand voice is "Playful". Match the requested platform's tone and length conventions.`;
+        const voiceGuides: Record<string, string> = {
+          "Scandinavian Minimal":
+            "Quiet, spare, almost architectural. Short sentences. Natural light, pale wood, linen. No ornament.",
+          "Parisian Luxury":
+            "Soft, refined, lightly romantic. French nouns welcome (croissant, comptoir, matin). Understated indulgence — never gaudy.",
+          "Urban Roaster":
+            "Confident, low-fi, slightly raw. Industrial textures, single-origin specifics, mention of the bar or the brew bar. No corporate gloss.",
+          "Warm Artisan":
+            "Hand-made warmth. Tactile verbs (folded, pulled, poured). Generous, neighborly, never saccharine.",
+        };
 
-        const prompt = `Generate a premium social caption set for:
-Business type: ${businessType}
-Brand voice preset: ${brandVoice}
-Product / menu item: ${product}
-Mood: ${mood}
-Platform: ${platform}
+        const voiceGuide = voiceGuides[brandVoice] ?? "Editorial, considered, sensory.";
 
-Return:
-- mainCaption: 2–4 short sentences, sensory, on-brand, no hashtags inside it.
-- shortCta: one tight call to action under 8 words.
-- hashtags: 5–8 lowercase hashtags (no #), specific not generic.
-- storyText: 1–2 sentences sized for an Instagram Story overlay, under 140 characters.`;
+        const system = `You are RoastNote — a premium AI brand voice engine for independent coffee shops, cafés, and artisan bakeries.
+
+You write social copy that reads like the back of a beautifully designed coffee bag or the opening paragraph of an indie food magazine: sensory, specific, emotionally engaging, modern, never generic.
+
+Hard rules:
+- No emojis (unless brand voice is explicitly playful — none of the current presets are).
+- No exclamation points.
+- No startup, hustle, or marketing-deck language ("game-changer", "level up", "elevate your morning", "perfect cup", "indulge", "treat yourself").
+- No clichés about Mondays, fuel, or "but first, coffee".
+- Prefer concrete sensory detail (texture, temperature, light, sound, scent) over adjectives like "delicious" or "amazing".
+- Vary sentence length. Fragments are welcome when they land.
+- Sound like a human wrote it at the bar, not a brand team in a meeting.`;
+
+        const prompt = `Write a premium social caption set.
+
+BUSINESS: ${businessType}
+PRODUCT: ${product}
+MOOD: ${mood}
+PLATFORM: ${platform}
+BRAND VOICE: ${brandVoice}
+VOICE GUIDE: ${voiceGuide}
+
+Deliver:
+- mainCaption: 2–4 short sentences sized for ${platform}. Sensory, specific to "${product}", carries the ${mood.toLowerCase()} mood and the ${brandVoice} voice. No hashtags inside.
+- shortCta: one quiet, confident call to action, max 7 words. Not pushy. No exclamation.
+- hashtags: 6–8 lowercase tags (no #), specific to the product, neighborhood feel, and craft — avoid #coffee, #love, #foodie, #instagood and other generics.
+- storyText: 1–2 lines under 120 characters, written as a Story overlay — a single observation or invitation, not a recap of the caption.`;
 
         try {
           const { experimental_output } = await generateText({
