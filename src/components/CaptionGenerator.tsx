@@ -192,7 +192,7 @@ export function CaptionGenerator() {
           </div>
         )}
         {result && (
-          <div className="flex flex-col gap-3 fade-up">
+          <div className="stagger flex flex-col gap-3">
             <CopyCard title="Main caption" body={result.mainCaption} />
             <CopyCard title="Short CTA" body={result.shortCta} />
             <CopyCard title="Story text" body={result.storyText} />
