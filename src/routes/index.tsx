@@ -305,13 +305,22 @@ function Samples() {
                   key={s.item}
                   className="rounded-2xl border border-border/70 bg-background p-6 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
                 >
-                  <div className="mb-4 flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                    <span>{s.voice}</span>
-                    <span>{s.item}</span>
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                    <span className="text-roast">{s.voice}</span>
+                    <span>{s.platform}</span>
                   </div>
-                  <blockquote className="font-serif text-[20px] leading-snug text-foreground sm:text-[22px]">
+                  <div className="mb-3 text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80">
+                    {s.item}
+                  </div>
+                  <blockquote className="whitespace-pre-line font-serif text-[19px] leading-snug text-foreground sm:text-[21px]">
                     {s.text}
                   </blockquote>
+                  <figcaption className="mt-5 border-t border-border/60 pt-4">
+                    <p className="font-serif text-[15px] italic text-roast">{s.cta}</p>
+                    <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
+                      {s.hashtags.map((h) => `#${h}`).join("  ")}
+                    </p>
+                  </figcaption>
                 </figure>
               ))}
             </div>
