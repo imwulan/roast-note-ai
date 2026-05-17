@@ -149,10 +149,10 @@ export function CaptionGenerator() {
         <button
           type="submit"
           disabled={loading}
-          className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)] disabled:opacity-60"
+          className="group press mt-8 inline-flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)] disabled:opacity-80"
         >
-          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
-          {loading ? "Brewing" : "Generate caption"}
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />}
+          {loading ? "Brewing your brand voice…" : "Generate caption"}
           {!loading && <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />}
         </button>
       </form>
