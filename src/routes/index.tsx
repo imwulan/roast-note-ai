@@ -37,17 +37,34 @@ const samples = [
   {
     voice: "Scandinavian Minimal",
     item: "Cardamom Bun",
-    text: "Folded slowly, baked late. Cardamom in the laminate, honey on the crust. It pairs well with a quiet morning.",
+    platform: "Instagram · Oslo",
+    text: "Friday's bake is on the counter.\nCardamom folded in twenty-seven times, baked dark, brushed with brown butter while still warm.\nWe open at eight. They rarely make it to ten.",
+    cta: "Saved for the morning queue.",
+    hashtags: ["fridaybake", "kardemommebolle", "slowmornings", "grünerløkka", "smallbatch"],
   },
   {
     voice: "Parisian Luxury",
     item: "Vanilla Cortado",
-    text: "A small, ceremonial cup. Espresso pulled long, milk warmed not hot — finished with a thread of madagascar vanilla.",
+    platform: "Instagram · Le Marais",
+    text: "un cortado, comme à la maison.\nespresso tiré court, lait tiède, un fil de vanille de madagascar.\nrien d'autre — c'est suffisant.",
+    cta: "à boire debout, au comptoir.",
+    hashtags: ["cortado", "cafédequartier", "lemarais", "spécialité", "petitcomptoir"],
   },
   {
     voice: "Urban Roaster",
     item: "Ethiopia Guji V60",
-    text: "Single origin. Natural process. Bergamot, stonefruit, a finish like jasmine tea. Brewed 1:16, no notes.",
+    platform: "Instagram · Brooklyn",
+    text: "New lot on bar: Guji, Hambela Alaka. Natural process, drying beds at 1,950m.\nWe're tasting bergamot, white peach, a finish that sits somewhere between jasmine tea and lemon zest.\nBrewed 22g in, 352g out, 3:15 total. Filter only this week.",
+    cta: "On bar through Sunday.",
+    hashtags: ["ethiopiaguji", "naturalprocess", "v60", "thirdwave", "singleorigin", "filterbar"],
+  },
+  {
+    voice: "Warm Artisan",
+    item: "Miso Chocolate Chip Cookie",
+    platform: "Instagram · Melbourne",
+    text: "We've been working on this one quietly for weeks.\nBrown butter, white miso, valrhona 70%, sea salt on top. Crisp edge, soft middle, a little salty around the third bite.\nBaked in small trays from ten 'til they're gone — usually around two.",
+    cta: "Pair with the oat flat white.",
+    hashtags: ["cookieoftheweek", "brownbutter", "misococookie", "melbournecoffee", "smallbatchbakes"],
   },
 ];
 
