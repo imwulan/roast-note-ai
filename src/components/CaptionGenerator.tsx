@@ -36,18 +36,24 @@ function CopyCard({ title, body }: { title: string; body: string }) {
     await navigator.clipboard.writeText(body);
     setCopied(true);
     toast.success("Copied to clipboard");
-    setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 1800);
   };
   return (
-    <div className="group relative rounded-2xl border border-border/70 bg-background p-6 transition-all duration-300 hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
+    <div className="group relative rounded-2xl border border-border/70 bg-background p-6 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
       <div className="mb-4 flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{title}</span>
         <button
           onClick={onCopy}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] text-foreground transition-colors hover:bg-secondary"
+          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+            copied
+              ? "border-roast/40 bg-roast/5 text-roast"
+              : "border-border bg-background/60 text-foreground hover:bg-secondary"
+          }`}
         >
-          {copied ? <Check className="h-3 w-3 text-roast" /> : <Copy className="h-3 w-3" />}
-          {copied ? "Copied" : "Copy"}
+          <span key={copied ? "c" : "i"} className="check-pop inline-flex items-center gap-1.5">
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? "Copied" : "Copy"}
+          </span>
         </button>
       </div>
       <p className="whitespace-pre-wrap font-serif text-[19px] leading-snug text-foreground sm:text-[20px]">
