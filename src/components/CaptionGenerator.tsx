@@ -36,18 +36,24 @@ function CopyCard({ title, body }: { title: string; body: string }) {
     await navigator.clipboard.writeText(body);
     setCopied(true);
     toast.success("Copied to clipboard");
-    setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 1800);
   };
   return (
-    <div className="group relative rounded-2xl border border-border/70 bg-background p-6 transition-all duration-300 hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
+    <div className="group relative rounded-2xl border border-border/70 bg-background p-6 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
       <div className="mb-4 flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{title}</span>
         <button
           onClick={onCopy}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] text-foreground transition-colors hover:bg-secondary"
+          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+            copied
+              ? "border-roast/40 bg-roast/5 text-roast"
+              : "border-border bg-background/60 text-foreground hover:bg-secondary"
+          }`}
         >
-          {copied ? <Check className="h-3 w-3 text-roast" /> : <Copy className="h-3 w-3" />}
-          {copied ? "Copied" : "Copy"}
+          <span key={copied ? "c" : "i"} className="check-pop inline-flex items-center gap-1.5">
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? "Copied" : "Copy"}
+          </span>
         </button>
       </div>
       <p className="whitespace-pre-wrap font-serif text-[19px] leading-snug text-foreground sm:text-[20px]">
@@ -143,10 +149,10 @@ export function CaptionGenerator() {
         <button
           type="submit"
           disabled={loading}
-          className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)] disabled:opacity-60"
+          className="group press mt-8 inline-flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)] disabled:opacity-80"
         >
-          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
-          {loading ? "Brewing" : "Generate caption"}
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />}
+          {loading ? "Brewing your brand voice…" : "Generate caption"}
           {!loading && <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />}
         </button>
       </form>
@@ -166,15 +172,27 @@ export function CaptionGenerator() {
           </div>
         )}
         {loading && (
-          <div className="flex h-full min-h-[440px] items-center justify-center rounded-[24px] border border-border/70 bg-cream/40">
-            <div className="flex flex-col items-center gap-4 text-muted-foreground">
-              <Loader2 className="h-5 w-5 animate-spin text-roast" />
-              <span className="text-[10px] uppercase tracking-[0.32em]">Pulling the shot</span>
+          <div className="flex h-full min-h-[440px] items-center justify-center rounded-[24px] border border-border/70 bg-cream/40 grain fade-in">
+            <div className="flex flex-col items-center gap-6 text-muted-foreground">
+              <div className="steam">
+                <span />
+                <span />
+                <span />
+                <div className="steam-cup" />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <span className="font-serif text-[20px] leading-tight shimmer-text">
+                  Brewing your brand voice…
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/80">
+                  Pulling the shot
+                </span>
+              </div>
             </div>
           </div>
         )}
         {result && (
-          <div className="flex flex-col gap-3 fade-up">
+          <div className="stagger flex flex-col gap-3">
             <CopyCard title="Main caption" body={result.mainCaption} />
             <CopyCard title="Short CTA" body={result.shortCta} />
             <CopyCard title="Story text" body={result.storyText} />
