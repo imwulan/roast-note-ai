@@ -172,10 +172,22 @@ export function CaptionGenerator() {
           </div>
         )}
         {loading && (
-          <div className="flex h-full min-h-[440px] items-center justify-center rounded-[24px] border border-border/70 bg-cream/40">
-            <div className="flex flex-col items-center gap-4 text-muted-foreground">
-              <Loader2 className="h-5 w-5 animate-spin text-roast" />
-              <span className="text-[10px] uppercase tracking-[0.32em]">Pulling the shot</span>
+          <div className="flex h-full min-h-[440px] items-center justify-center rounded-[24px] border border-border/70 bg-cream/40 grain fade-in">
+            <div className="flex flex-col items-center gap-6 text-muted-foreground">
+              <div className="steam">
+                <span />
+                <span />
+                <span />
+                <div className="steam-cup" />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <span className="font-serif text-[20px] leading-tight shimmer-text">
+                  Brewing your brand voice…
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/80">
+                  Pulling the shot
+                </span>
+              </div>
             </div>
           </div>
         )}
