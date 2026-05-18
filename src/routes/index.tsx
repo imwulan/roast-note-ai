@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { ChevronDown, Coffee, Quote, ArrowRight } from "lucide-react";
 import { CaptionGenerator } from "@/components/CaptionGenerator";
+import { useAuth } from "@/hooks/use-auth";
 import heroCoffee from "@/assets/hero-coffee.jpg";
 import pastries from "@/assets/pastries.jpg";
 
@@ -96,6 +97,30 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AuthNav() {
+  const { user, loading, signOut } = useAuth();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted || loading) {
+    return <span className="h-9 w-20" aria-hidden />;
+  }
+  if (user) {
+    return (
+      <button
+        onClick={() => signOut()}
+        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Sign out
+      </button>
+    );
+  }
+  return (
+    <Link to="/login" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+      Sign in
+    </Link>
+  );
+}
+
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
@@ -112,12 +137,15 @@ function Nav() {
           <a className="transition-colors hover:text-foreground" href="#pricing">Pricing</a>
           <a className="transition-colors hover:text-foreground" href="#faq">FAQ</a>
         </nav>
-        <a
-          href="#generator"
-          className="hidden h-10 items-center rounded-full bg-primary px-5 text-[12px] font-medium tracking-wide text-primary-foreground transition-all hover:bg-espresso md:inline-flex"
-        >
-          Try the generator
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          <AuthNav />
+          <a
+            href="#generator"
+            className="inline-flex h-10 items-center rounded-full bg-primary px-5 text-[12px] font-medium tracking-wide text-primary-foreground transition-all hover:bg-espresso"
+          >
+            Try the generator
+          </a>
+        </div>
         <button
           aria-label="Menu"
           onClick={() => setOpen((o) => !o)}
