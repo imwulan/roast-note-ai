@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      generations: {
+        Row: {
+          brand_voice: string | null
+          business_type: string | null
+          created_at: string
+          generated_caption: string | null
+          generated_cta: string | null
+          generated_hashtags: string[] | null
+          generated_story: string | null
+          id: string
+          mood: string | null
+          platform: string | null
+          user_id: string
+          user_input: string | null
+        }
+        Insert: {
+          brand_voice?: string | null
+          business_type?: string | null
+          created_at?: string
+          generated_caption?: string | null
+          generated_cta?: string | null
+          generated_hashtags?: string[] | null
+          generated_story?: string | null
+          id?: string
+          mood?: string | null
+          platform?: string | null
+          user_id: string
+          user_input?: string | null
+        }
+        Update: {
+          brand_voice?: string | null
+          business_type?: string | null
+          created_at?: string
+          generated_caption?: string | null
+          generated_cta?: string | null
+          generated_hashtags?: string[] | null
+          generated_story?: string | null
+          id?: string
+          mood?: string | null
+          platform?: string | null
+          user_id?: string
+          user_input?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

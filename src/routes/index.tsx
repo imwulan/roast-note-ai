@@ -106,12 +106,20 @@ function AuthNav() {
   }
   if (user) {
     return (
-      <button
-        onClick={() => signOut()}
-        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Sign out
-      </button>
+      <div className="flex items-center gap-4">
+        <Link
+          to="/history"
+          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          History
+        </Link>
+        <button
+          onClick={() => signOut()}
+          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Sign out
+        </button>
+      </div>
     );
   }
   return (

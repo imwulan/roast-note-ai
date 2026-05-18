@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Copy, Sparkles, Loader2, Check, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 const businessTypes = ["Coffee Shop", "Artisan Bakery", "Brunch Café", "Specialty Roaster"];
 const voicePresets = ["Scandinavian Minimal", "Parisian Luxury", "Urban Roaster", "Warm Artisan"];
@@ -64,6 +66,7 @@ function CopyCard({ title, body }: { title: string; body: string }) {
 }
 
 export function CaptionGenerator() {
+  const { user } = useAuth();
   const [businessType, setBusinessType] = useState(businessTypes[0]);
   const [brandVoice, setBrandVoice] = useState(voicePresets[3]);
   const [product, setProduct] = useState("");
@@ -93,6 +96,22 @@ export function CaptionGenerator() {
       }
       const data = (await res.json()) as GeneratedOutput;
       setResult(data);
+
+      if (user) {
+        const { error } = await supabase.from("generations").insert({
+          user_id: user.id,
+          business_type: businessType,
+          brand_voice: brandVoice,
+          mood,
+          platform,
+          user_input: product,
+          generated_caption: data.mainCaption,
+          generated_cta: data.shortCta,
+          generated_hashtags: data.hashtags,
+          generated_story: data.storyText,
+        });
+        if (error) console.error("Save generation failed:", error);
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     } finally {
