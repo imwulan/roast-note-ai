@@ -97,6 +97,30 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AuthNav() {
+  const { user, loading, signOut } = useAuth();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted || loading) {
+    return <span className="h-9 w-20" aria-hidden />;
+  }
+  if (user) {
+    return (
+      <button
+        onClick={() => signOut()}
+        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Sign out
+      </button>
+    );
+  }
+  return (
+    <Link to="/login" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+      Sign in
+    </Link>
+  );
+}
+
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
