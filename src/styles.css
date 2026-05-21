@@ -204,10 +204,13 @@
   }
   .stagger > * { opacity: 0; }
   .stagger > *:nth-child(1) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
-  .stagger > *:nth-child(2) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.16s both; }
-  .stagger > *:nth-child(3) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.27s both; }
-  .stagger > *:nth-child(4) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
-  .stagger > *:nth-child(5) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.49s both; }
+  .stagger > *:nth-child(2) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.14s both; }
+  .stagger > *:nth-child(3) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.23s both; }
+  .stagger > *:nth-child(4) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.32s both; }
+  .stagger > *:nth-child(5) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.41s both; }
+  .stagger > *:nth-child(6) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+  .stagger > *:nth-child(7) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.59s both; }
+  .stagger > *:nth-child(8) { animation: revealCard 0.7s cubic-bezier(0.22,1,0.36,1) 0.68s both; }
   .steam {
     position: relative;
     width: 56px;
