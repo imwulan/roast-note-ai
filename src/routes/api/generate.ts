@@ -43,7 +43,7 @@ export const Route = createFileRoute("/api/generate")({
         if (!parsed.success) {
           return new Response(JSON.stringify({ error: "Invalid input" }), { status: 400 });
         }
-        const { businessType, brandVoice, product, mood, platform } = parsed.data;
+        const { businessType, brandVoice, product, mood, platform, previousVersions } = parsed.data;
 
         const apiKey = process.env.LOVABLE_API_KEY;
         if (!apiKey) {
