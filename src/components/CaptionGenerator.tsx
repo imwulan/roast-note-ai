@@ -37,7 +37,9 @@ function CopyCard({ title, body }: { title: string; body: string }) {
   const onCopy = async () => {
     await navigator.clipboard.writeText(body);
     setCopied(true);
-    toast.success("Copied to clipboard");
+    toast.success("Copied to clipboard", {
+      description: `${title} ready to paste.`,
+    });
     setTimeout(() => setCopied(false), 1800);
   };
   return (
@@ -46,14 +48,14 @@ function CopyCard({ title, body }: { title: string; body: string }) {
         <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{title}</span>
         <button
           onClick={onCopy}
-          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-all ${
             copied
               ? "border-roast/40 bg-roast/5 text-roast"
-              : "border-border bg-background/60 text-foreground hover:bg-secondary"
+              : "border-border bg-background/60 text-foreground hover:border-roast/30 hover:bg-secondary"
           }`}
         >
           <span key={copied ? "c" : "i"} className="check-pop inline-flex items-center gap-1.5">
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3 transition-transform group-hover:scale-110" />}
             {copied ? "Copied" : "Copy"}
           </span>
         </button>
@@ -139,6 +141,23 @@ export function CaptionGenerator() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const copyAll = async () => {
+    if (!result) return;
+    const text = [
+      result.mainCaption,
+      "",
+      result.shortCta,
+      "",
+      result.storyText,
+      "",
+      result.hashtags.map((h) => `#${h}`).join(" "),
+    ].join("\n");
+    await navigator.clipboard.writeText(text);
+    toast.success("Everything copied", {
+      description: "Caption, CTA, story and hashtags ready to paste.",
+    });
   };
 
   const submit = (e: React.FormEvent) => {
@@ -239,33 +258,50 @@ export function CaptionGenerator() {
         )}
         {result && (
           <div className="stagger flex flex-col gap-3">
+            <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-background p-4">
+              <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                Generated output
+              </span>
+              <button
+                onClick={() => void copyAll()}
+                className="press inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-4 py-2 text-[11px] font-medium text-foreground transition-all hover:border-roast/30 hover:bg-cream/60"
+              >
+                <Copy className="h-3.5 w-3.5" />
+                Copy all
+              </button>
+            </div>
+
             <CopyCard title="Main caption" body={result.mainCaption} />
             <CopyCard title="Short CTA" body={result.shortCta} />
             <CopyCard title="Story text" body={result.storyText} />
-            <div className="rounded-2xl border border-border/70 bg-background p-6">
+
+            <div className="group relative rounded-2xl border border-border/70 bg-background p-6 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
               <div className="mb-4 flex items-center justify-between">
                 <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">Hashtags</span>
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(result.hashtags.map((h) => `#${h}`).join(" "));
-                    toast.success("Hashtags copied");
+                    toast.success("Copied to clipboard", {
+                      description: "Hashtags ready to paste.",
+                    });
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] hover:bg-secondary"
+                  className="press inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] text-foreground transition-all hover:border-roast/30 hover:bg-secondary"
                 >
-                  <Copy className="h-3 w-3" /> Copy
+                  <Copy className="h-3 w-3 transition-transform group-hover:scale-110" /> Copy
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">
                 {result.hashtags.map((h) => (
                   <span
                     key={h}
-                    className="rounded-full border border-border bg-cream/70 px-3 py-1 text-[12px] text-foreground"
+                    className="rounded-full border border-border bg-cream/70 px-3 py-1 text-[12px] text-foreground transition-colors hover:border-roast/30 hover:bg-cream"
                   >
                     #{h}
                   </span>
                 ))}
               </div>
             </div>
+
             <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="button"
@@ -282,6 +318,7 @@ export function CaptionGenerator() {
                 </span>
               )}
             </div>
+
             {history.length > 0 && (
               <details className="group rounded-2xl border border-dashed border-border/70 bg-background/40 p-5">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
@@ -291,7 +328,7 @@ export function CaptionGenerator() {
                 </summary>
                 <div className="mt-4 flex flex-col gap-4">
                   {history.map((v, i) => (
-                    <div key={i} className="rounded-xl border border-border/60 bg-background p-4">
+                    <div key={i} className="rounded-xl border border-border/60 bg-background p-4 transition-all hover:border-roast/30 hover:shadow-[var(--shadow-soft)]">
                       <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
                         Version {i + 1}
                       </span>
