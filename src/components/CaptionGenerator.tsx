@@ -37,7 +37,9 @@ function CopyCard({ title, body }: { title: string; body: string }) {
   const onCopy = async () => {
     await navigator.clipboard.writeText(body);
     setCopied(true);
-    toast.success("Copied to clipboard");
+    toast.success("Copied to clipboard", {
+      description: `${title} ready to paste.`,
+    });
     setTimeout(() => setCopied(false), 1800);
   };
   return (
@@ -46,14 +48,14 @@ function CopyCard({ title, body }: { title: string; body: string }) {
         <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{title}</span>
         <button
           onClick={onCopy}
-          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+          className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] transition-all ${
             copied
               ? "border-roast/40 bg-roast/5 text-roast"
-              : "border-border bg-background/60 text-foreground hover:bg-secondary"
+              : "border-border bg-background/60 text-foreground hover:border-roast/30 hover:bg-secondary"
           }`}
         >
           <span key={copied ? "c" : "i"} className="check-pop inline-flex items-center gap-1.5">
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3 transition-transform group-hover:scale-110" />}
             {copied ? "Copied" : "Copy"}
           </span>
         </button>
