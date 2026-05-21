@@ -41,48 +41,136 @@ export const Route = createFileRoute("/api/generate")({
         }
 
         const gateway = createLovableAiGatewayProvider(apiKey);
-        const model = gateway("openai/gpt-5-mini");
+        const model = gateway("openai/gpt-5");
 
-        const voiceGuides: Record<string, string> = {
-          "Scandinavian Minimal":
-            "Quiet, spare, almost architectural. Short sentences. Natural light, pale wood, linen. No ornament.",
-          "Parisian Luxury":
-            "Soft, refined, lightly romantic. French nouns welcome (croissant, comptoir, matin). Understated indulgence — never gaudy.",
-          "Urban Roaster":
-            "Confident, low-fi, slightly raw. Industrial textures, single-origin specifics, mention of the bar or the brew bar. No corporate gloss.",
-          "Warm Artisan":
-            "Hand-made warmth. Tactile verbs (folded, pulled, poured). Generous, neighborly, never saccharine.",
+        const voiceGuides: Record<string, {
+          essence: string;
+          rhythm: string;
+          vocabulary: string;
+          tone: string;
+          avoid: string;
+          reference: string;
+        }> = {
+          "Scandinavian Minimal": {
+            essence:
+              "Quiet, restrained, almost architectural. Negative space matters more than what is said. One precise observation lands harder than three adjectives.",
+            rhythm:
+              "Very short sentences. Fragments. Often 3–8 words. Periods carry weight. Never compound or florid.",
+            vocabulary:
+              "Pale wood, linen, oat, ceramic, morning light, raw, slow, still, plain, honest. Use nouns over adjectives. No metaphors.",
+            tone: "Cool, calm, slightly austere. The pleasure is in the restraint itself. Think Fabrique, Drop, Coffee Collective.",
+            avoid:
+              "Romantic verbs, French words, exclamation, hype, anything decorative. No 'cozy,' no 'comforting.'",
+            reference: "Reads like a Kinfolk caption or a Norm Architects product card.",
+          },
+          "Parisian Luxury": {
+            essence:
+              "Editorial, poetic, lightly romantic. Copy that could open a Vogue Paris food column. Indulgence framed as taste, never excess.",
+            rhythm:
+              "Longer, lyrical sentences with internal pauses. Em dashes welcome. Occasional fragment for cadence. Reads aloud well.",
+            vocabulary:
+              "Comptoir, matin, beurre, feuilletage, ombre, lumière. French nouns dropped in naturally — never translated, never italicised. Words like quiet, suspended, glossed, lacquered, slow afternoon.",
+            tone: "Refined, knowing, a little wistful. Pleasure as a private ritual. Think Cédric Grolet, Maison Plisson, Telescope Café.",
+            avoid:
+              "Cheesy romance, 'magical', 'heavenly', 'oh la la', exclamations. No tourist-French.",
+            reference: "Reads like an editor's note in The Gourmand or a Mast Books menu insert.",
+          },
+          "Urban Roaster": {
+            essence:
+              "Ingredient-led, technical, grounded. The product speaks first — origin, process, the bar, the brew. Confidence without polish.",
+            rhythm:
+              "Medium-length, declarative sentences. Often built around a colon or a hard period. Direct subject-verb-object. No filler.",
+            vocabulary:
+              "Single-origin specifics (Gesha, Sidamo, washed, natural, anaerobic), bar terms (pull, dose, ratio, EK43, V60), tactile descriptors (syrupy, citric, brown sugar, stone fruit). Real numbers when relevant.",
+            tone: "Confident, low-fi, a touch raw. Talks to people who already know coffee — and welcomes those who don't, without explaining down. Think Onyx, Manhattanist, La Cabra, Prufrock.",
+            avoid:
+              "Soft adjectives, 'cozy', 'perfect', 'elevate'. No corporate gloss. No emoji. No exclamation.",
+            reference: "Reads like a roast card or a barista's chalkboard note.",
+          },
+          "Warm Artisan": {
+            essence:
+              "Handmade warmth. The bakery on the corner that knows your name. Generous, unhurried, neighborly — but never twee.",
+            rhythm:
+              "Mixed sentence lengths. A long, walking sentence followed by a short one. Conversational cadence — written the way it would be said across the counter.",
+            vocabulary:
+              "Tactile verbs (folded, laminated, pulled, poured, dusted, rested). Time words (overnight, all morning, since five). Familiar nouns (kitchen, hands, dough, butter, oven). Names of regulars and neighborhoods are welcome.",
+            tone: "Warm, grounded, quietly proud. Pride in the doing, not the brand. Think Tartine, Lune, St. JOHN Bakery, Bread Ahead.",
+            avoid:
+              "Saccharine 'made with love', 'crafted with passion', 'family' as a buzzword. No corporate warmth.",
+            reference: "Reads like a handwritten card tucked next to the pastry case.",
+          },
         };
 
-        const voiceGuide = voiceGuides[brandVoice] ?? "Editorial, considered, sensory.";
+        const voice = voiceGuides[brandVoice] ?? {
+          essence: "Editorial, considered, sensory.",
+          rhythm: "Varied sentence length. Confident pacing.",
+          vocabulary: "Concrete sensory nouns. No filler adjectives.",
+          tone: "Modern, human, premium.",
+          avoid: "Marketing clichés.",
+          reference: "Modern indie café branding.",
+        };
 
-        const system = `You are RoastNote — a premium AI brand voice engine for independent coffee shops, cafés, and artisan bakeries.
+        const system = `You are RoastNote — the in-house copy voice for the most thoughtful independent coffee shops, cafés, and artisan bakeries in cities like Copenhagen, Paris, Brooklyn, Melbourne, Lisbon, and London.
 
-You write social copy that reads like the back of a beautifully designed coffee bag or the opening paragraph of an indie food magazine: sensory, specific, emotionally engaging, modern, never generic.
+You write the way the best small cafés actually write: like a human at the bar who cares about the product, not a marketing team. Your copy could sit next to work by Onyx, La Cabra, Tartine, Maison Plisson, or Coffee Collective without looking out of place.
 
-Hard rules:
-- No emojis (unless brand voice is explicitly playful — none of the current presets are).
-- No exclamation points.
-- No startup, hustle, or marketing-deck language ("game-changer", "level up", "elevate your morning", "perfect cup", "indulge", "treat yourself").
-- No clichés about Mondays, fuel, or "but first, coffee".
-- Prefer concrete sensory detail (texture, temperature, light, sound, scent) over adjectives like "delicious" or "amazing".
-- Vary sentence length. Fragments are welcome when they land.
-- Sound like a human wrote it at the bar, not a brand team in a meeting.`;
+GLOBAL HARD RULES (never break):
+- No emojis. Ever. Across every preset.
+- No exclamation points. Anywhere.
+- No marketing or startup language: "game-changer", "elevate", "level up", "unlock", "experience", "indulge", "treat yourself", "perfect cup", "the ultimate", "next-level", "must-try", "obsessed", "crushing it".
+- No coffee clichés: "but first, coffee", "Monday mood", "fuel", "rise and grind", "caffeine fix", "liquid gold", "happy place", "good vibes".
+- No empty intensifiers: "amazing", "delicious", "incredible", "absolutely", "literally", "perfectly".
+- No AI tells: tricolons of adjectives ("warm, rich, inviting"), parallel "Whether you're… or…" constructions, "Picture this:", "Step into…", "There's something about…", "Crafted with…", rhetorical questions to the reader.
+- No hashtags or @mentions inside captions. Hashtags belong only in the hashtags field.
+- Concrete over abstract: a real texture, temperature, sound, smell, light, or hand-motion beats any adjective.
+- Sentence rhythm must vary within the caption. Never three sentences of the same length in a row.
+- Sound like one specific person wrote it for one specific café — never like a template.`;
 
-        const prompt = `Write a premium social caption set.
+        const prompt = `Write one social post for this café.
 
-BUSINESS: ${businessType}
-PRODUCT: ${product}
-MOOD: ${mood}
-PLATFORM: ${platform}
-BRAND VOICE: ${brandVoice}
-VOICE GUIDE: ${voiceGuide}
+CONTEXT
+- Business: ${businessType}
+- Product / menu item: ${product}
+- Mood: ${mood}
+- Platform: ${platform}
+- Brand voice preset: ${brandVoice}
 
-Deliver:
-- mainCaption: 2–4 short sentences sized for ${platform}. Sensory, specific to "${product}", carries the ${mood.toLowerCase()} mood and the ${brandVoice} voice. No hashtags inside.
-- shortCta: one quiet, confident call to action, max 7 words. Not pushy. No exclamation.
-- hashtags: 6–8 lowercase tags (no #), specific to the product, neighborhood feel, and craft — avoid #coffee, #love, #foodie, #instagood and other generics.
-- storyText: 1–2 lines under 120 characters, written as a Story overlay — a single observation or invitation, not a recap of the caption.`;
+VOICE BIBLE — ${brandVoice}
+- Essence: ${voice.essence}
+- Rhythm: ${voice.rhythm}
+- Vocabulary: ${voice.vocabulary}
+- Tone: ${voice.tone}
+- Avoid: ${voice.avoid}
+- Reference feel: ${voice.reference}
+
+The output for "${brandVoice}" must be unmistakably different in vocabulary, rhythm, and emotional tone from what the other three presets would produce for the same product. If a reader could not guess the preset from the caption alone, rewrite it.
+
+DELIVER (return as structured object):
+
+1. mainCaption
+   - Sized for ${platform}. Instagram Post: 2–4 sentences. Story: 1 line. Threads: 1–2 sentences, slightly more conversational. TikTok: 1 punchy line.
+   - Anchored in one concrete sensory detail of "${product}" — not a list of adjectives.
+   - Carries the ${mood.toLowerCase()} mood through rhythm and word choice, not by naming the mood.
+   - Follows the rhythm rule above. Vary sentence length. Fragments allowed when they land.
+   - No hashtags, no emojis, no exclamation.
+
+2. shortCta
+   - Maximum 6 words. Quiet, specific, never pushy.
+   - No "shop now", "tap to order", "don't miss", "link in bio", "come try", "swing by today", "limited time".
+   - Prefer an invitation tied to a real moment: an hour, a chair, a counter, a window seat.
+
+3. hashtags
+   - 6–8 lowercase tags, no # prefix.
+   - Specific to the product, craft, neighborhood feel, and ${brandVoice} sensibility.
+   - Banned: coffee, love, foodie, instagood, instafood, yum, yummy, delicious, coffeelover, coffeetime, coffeegram, foodporn, cafe, cafelife.
+   - Mix specific (e.g. laminateddough, slowextraction, naturalprocess) with scene-setting (e.g. windowseat, morninglight, cornerbakery). No brand names.
+
+4. storyText
+   - Under 110 characters. One line, designed as a Story overlay.
+   - A single observation, a time, or a quiet invitation — not a summary of the caption.
+   - Different angle from the caption: if the caption talks about the product, the story talks about the moment, or vice versa.
+
+Before returning, silently check: does this read like AI? If any sentence could appear in a generic Canva template, rewrite it sharper and more specific.`;
 
         try {
           const { experimental_output } = await generateText({
