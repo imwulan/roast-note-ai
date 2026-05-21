@@ -266,6 +266,44 @@ export function CaptionGenerator() {
                 ))}
               </div>
             </div>
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="button"
+                onClick={() => void runGenerate("regenerate")}
+                disabled={loading}
+                className="group press inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-5 text-[12px] font-medium tracking-wide text-foreground transition-all hover:border-roast/40 hover:bg-cream/60 disabled:opacity-60"
+              >
+                <RefreshCw className="h-3.5 w-3.5 transition-transform group-hover:-rotate-180" />
+                Generate another version
+              </button>
+              {history.length > 0 && (
+                <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                  Version {history.length + 1} · {history.length} earlier {history.length === 1 ? "draft" : "drafts"} in memory
+                </span>
+              )}
+            </div>
+            {history.length > 0 && (
+              <details className="group rounded-2xl border border-dashed border-border/70 bg-background/40 p-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                  Previous versions
+                  <span className="text-[10px] normal-case tracking-normal text-muted-foreground/70 group-open:hidden">show</span>
+                  <span className="hidden text-[10px] normal-case tracking-normal text-muted-foreground/70 group-open:inline">hide</span>
+                </summary>
+                <div className="mt-4 flex flex-col gap-4">
+                  {history.map((v, i) => (
+                    <div key={i} className="rounded-xl border border-border/60 bg-background p-4">
+                      <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                        Version {i + 1}
+                      </span>
+                      <p className="mt-2 whitespace-pre-wrap font-serif text-[15px] leading-snug text-foreground/90">
+                        {v.mainCaption}
+                      </p>
+                      <p className="mt-2 text-[12px] italic text-muted-foreground">{v.shortCta}</p>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )}
           </div>
         )}
       </div>
