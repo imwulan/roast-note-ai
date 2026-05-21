@@ -143,6 +143,23 @@ export function CaptionGenerator() {
     }
   };
 
+  const copyAll = async () => {
+    if (!result) return;
+    const text = [
+      result.mainCaption,
+      "",
+      result.shortCta,
+      "",
+      result.storyText,
+      "",
+      result.hashtags.map((h) => `#${h}`).join(" "),
+    ].join("\n");
+    await navigator.clipboard.writeText(text);
+    toast.success("Everything copied", {
+      description: "Caption, CTA, story and hashtags ready to paste.",
+    });
+  };
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     void runGenerate("fresh");
