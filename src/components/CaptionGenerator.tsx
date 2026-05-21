@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { toast } from "sonner";
-import { Copy, Sparkles, Loader2, Check, ArrowRight } from "lucide-react";
+import { Copy, Sparkles, Loader2, Check, ArrowRight, RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 
