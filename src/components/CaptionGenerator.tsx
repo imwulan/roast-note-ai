@@ -74,20 +74,40 @@ export function CaptionGenerator() {
   const [platform, setPlatform] = useState(platforms[0]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GeneratedOutput | null>(null);
+  const [history, setHistory] = useState<GeneratedOutput[]>([]);
+  const signatureRef = useRef<string>("");
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const runGenerate = async (mode: "fresh" | "regenerate") => {
     if (!product.trim()) {
       toast.error("Add a product or menu item first");
       return;
     }
+    const signature = `${businessType}|${brandVoice}|${product}|${mood}|${platform}`;
+    const inputsChanged = signature !== signatureRef.current;
+    const isRegenerate = mode === "regenerate" && !inputsChanged && (result !== null || history.length > 0);
+
+    const carriedHistory = isRegenerate
+      ? [...history, ...(result ? [result] : [])]
+      : [];
+
     setLoading(true);
     setResult(null);
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ businessType, brandVoice, product, mood, platform }),
+        body: JSON.stringify({
+          businessType,
+          brandVoice,
+          product,
+          mood,
+          platform,
+          previousVersions: carriedHistory.map((v) => ({
+            mainCaption: v.mainCaption,
+            shortCta: v.shortCta,
+            storyText: v.storyText,
+          })),
+        }),
       });
       if (!res.ok) {
         if (res.status === 429) throw new Error("Rate limit reached. Please wait a moment.");
@@ -96,6 +116,8 @@ export function CaptionGenerator() {
       }
       const data = (await res.json()) as GeneratedOutput;
       setResult(data);
+      setHistory(carriedHistory);
+      signatureRef.current = signature;
 
       if (user) {
         const { error } = await supabase.from("generations").insert({
@@ -117,6 +139,11 @@ export function CaptionGenerator() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    void runGenerate("fresh");
   };
 
   return (
