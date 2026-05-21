@@ -180,7 +180,32 @@ DELIVER (return as structured object):
    - A single observation, a time, or a quiet invitation — not a summary of the caption.
    - Different angle from the caption: if the caption talks about the product, the story talks about the moment, or vice versa.
 
-Before returning, silently check: does this read like AI? If any sentence could appear in a generic Canva template, rewrite it sharper and more specific.`;
+Before returning, silently check: does this read like AI? If any sentence could appear in a generic Canva template, rewrite it sharper and more specific.${
+          previousVersions && previousVersions.length > 0
+            ? `
+
+REGENERATION MODE — this is version ${previousVersions.length + 1}.
+You have already written the following versions for the SAME product, voice, and mood. Stay inside the ${brandVoice} voice bible, but make this version feel genuinely new.
+
+${previousVersions
+  .map(
+    (v, i) =>
+      `--- Version ${i + 1} ---
+Caption: ${v.mainCaption}
+CTA: ${v.shortCta}
+Story: ${v.storyText}`,
+  )
+  .join("\n\n")}
+
+Hard rules for this regeneration:
+- Do not reuse the opening word or opening image of any previous version.
+- Do not reuse any distinctive noun, verb, or phrase longer than two words from any previous version (especially the sensory anchor — pick a different angle: light, sound, hand-motion, time of day, surface, temperature, conversation, ritual).
+- Change the sentence structure shape: if previous versions led with a fragment, lead with a full sentence here, and vice versa. Change where the period falls.
+- Different CTA verb and different setting object than any previous CTA.
+- Different angle for the story line than any previous story.
+- Still unmistakably ${brandVoice}. The voice is a constant; the rendering is the variable.`
+            : ""
+        }`;
 
         try {
           const { experimental_output } = await generateText({
