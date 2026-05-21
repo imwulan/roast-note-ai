@@ -10,6 +10,16 @@ const InputSchema = z.object({
   product: z.string().min(1).max(160),
   mood: z.string().min(1).max(40),
   platform: z.string().min(1).max(40),
+  previousVersions: z
+    .array(
+      z.object({
+        mainCaption: z.string(),
+        shortCta: z.string(),
+        storyText: z.string(),
+      }),
+    )
+    .max(8)
+    .optional(),
 });
 
 const OutputSchema = z.object({
