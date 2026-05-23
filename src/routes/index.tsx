@@ -195,17 +195,17 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pt-14 pb-20 sm:px-8 sm:pt-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-28 lg:pb-32">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pt-10 pb-14 sm:gap-14 sm:px-8 sm:pt-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-28 lg:pb-32">
         <div className="fade-up">
           <Eyebrow>AI brand voice engine</Eyebrow>
-          <h1 className="mt-7 font-serif text-[40px] leading-[1.04] tracking-[-0.02em] text-foreground sm:text-6xl lg:text-[76px]">
+          <h1 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] text-foreground sm:mt-7 sm:text-6xl lg:text-[76px]">
             Your café deserves a voice people
             <span className="italic text-roast"> remember.</span>
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:mt-7 sm:text-lg">
             Generate premium social captions inspired by modern coffee branding trends from top cafés in the US &amp; Europe — without sounding like a generic AI tool.
           </p>
-          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
             <a
               href="#generator"
               className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)]"
@@ -221,7 +221,7 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-12 flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+          <div className="mt-9 flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground sm:mt-12">
             <span>Est. 2026</span>
             <span className="h-px w-8 bg-border" />
             <span>Brewed for cafés</span>
