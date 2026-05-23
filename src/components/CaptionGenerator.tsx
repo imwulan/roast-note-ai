@@ -43,8 +43,8 @@ function CopyCard({ title, body }: { title: string; body: string }) {
     setTimeout(() => setCopied(false), 1800);
   };
   return (
-    <div className="group relative rounded-2xl border border-border/70 bg-background p-6 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="group relative rounded-2xl border border-border/70 bg-background p-5 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)] sm:p-6">
+      <div className="mb-3 flex items-center justify-between sm:mb-4">
         <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">{title}</span>
         <button
           onClick={onCopy}
@@ -60,7 +60,7 @@ function CopyCard({ title, body }: { title: string; body: string }) {
           </span>
         </button>
       </div>
-      <p className="whitespace-pre-wrap font-serif text-[19px] leading-snug text-foreground sm:text-[20px]">
+      <p className="whitespace-pre-wrap font-serif text-[17px] leading-snug text-foreground sm:text-[20px]">
         {body}
       </p>
     </div>
