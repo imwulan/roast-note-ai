@@ -397,10 +397,10 @@ const tiers = [
 function Pricing() {
   return (
     <section id="pricing" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 max-w-2xl">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 max-w-2xl sm:mb-14">
           <Eyebrow>Pricing</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Honest pricing. <span className="italic text-roast">Like a good menu.</span>
           </h2>
         </div>
