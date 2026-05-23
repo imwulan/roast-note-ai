@@ -316,8 +316,8 @@ function GeneratorSection() {
 function Samples() {
   return (
     <section id="samples" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden rounded-[20px] border border-border/70 shadow-[var(--shadow-cup)]">
               <img
@@ -332,26 +332,26 @@ function Samples() {
           </div>
           <div>
             <Eyebrow>Sample outputs</Eyebrow>
-            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
               Captions, the way <span className="italic text-roast">good cafés</span> write them.
             </h2>
-            <div className="mt-10 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-4 sm:mt-10">
               {samples.map((s) => (
                 <figure
                   key={s.item}
-                  className="rounded-2xl border border-border/70 bg-background p-6 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
+                  className="rounded-2xl border border-border/70 bg-background p-5 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
                 >
-                  <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground sm:mb-4">
                     <span className="text-roast">{s.voice}</span>
                     <span>{s.platform}</span>
                   </div>
                   <div className="mb-3 text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80">
                     {s.item}
                   </div>
-                  <blockquote className="whitespace-pre-line font-serif text-[19px] leading-snug text-foreground sm:text-[21px]">
+                  <blockquote className="whitespace-pre-line font-serif text-[17px] leading-snug text-foreground sm:text-[21px]">
                     {s.text}
                   </blockquote>
-                  <figcaption className="mt-5 border-t border-border/60 pt-4">
+                  <figcaption className="mt-4 border-t border-border/60 pt-4 sm:mt-5">
                     <p className="font-serif text-[15px] italic text-roast">{s.cta}</p>
                     <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
                       {s.hashtags.map((h) => `#${h}`).join("  ")}
