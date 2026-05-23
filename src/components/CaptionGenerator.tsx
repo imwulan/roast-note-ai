@@ -275,8 +275,8 @@ export function CaptionGenerator() {
             <CopyCard title="Short CTA" body={result.shortCta} />
             <CopyCard title="Story text" body={result.storyText} />
 
-            <div className="group relative rounded-2xl border border-border/70 bg-background p-6 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)]">
-              <div className="mb-4 flex items-center justify-between">
+            <div className="group relative rounded-2xl border border-border/70 bg-background p-5 lift hover:border-roast/40 hover:shadow-[var(--shadow-soft)] sm:p-6">
+              <div className="mb-3 flex items-center justify-between sm:mb-4">
                 <span className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">Hashtags</span>
                 <button
                   onClick={async () => {
