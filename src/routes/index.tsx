@@ -195,17 +195,17 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pt-14 pb-20 sm:px-8 sm:pt-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-28 lg:pb-32">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pt-10 pb-14 sm:gap-14 sm:px-8 sm:pt-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-28 lg:pb-32">
         <div className="fade-up">
           <Eyebrow>AI brand voice engine</Eyebrow>
-          <h1 className="mt-7 font-serif text-[40px] leading-[1.04] tracking-[-0.02em] text-foreground sm:text-6xl lg:text-[76px]">
+          <h1 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] text-foreground sm:mt-7 sm:text-6xl lg:text-[76px]">
             Your café deserves a voice people
             <span className="italic text-roast"> remember.</span>
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:mt-7 sm:text-lg">
             Generate premium social captions inspired by modern coffee branding trends from top cafés in the US &amp; Europe — without sounding like a generic AI tool.
           </p>
-          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
             <a
               href="#generator"
               className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[13px] font-medium tracking-wide text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-espresso hover:shadow-[var(--shadow-lift)]"
@@ -221,7 +221,7 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-12 flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+          <div className="mt-9 flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground sm:mt-12">
             <span>Est. 2026</span>
             <span className="h-px w-8 bg-border" />
             <span>Brewed for cafés</span>
@@ -262,15 +262,15 @@ function Hero() {
 function Presets() {
   return (
     <section id="presets" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 grid gap-6 sm:mb-14 sm:gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end">
           <div>
             <Eyebrow>Brand voice presets</Eyebrow>
-            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
               Four voices, each tuned to a <span className="italic text-roast">kind of café.</span>
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="text-[15px] leading-relaxed text-muted-foreground sm:text-lg">
             Curated from the cafés we admire — not from a list of buzzwords. Choose one and every caption is written in that register.
           </p>
         </div>
@@ -278,14 +278,14 @@ function Presets() {
           {presets.map((p, i) => (
             <div
               key={p.name}
-              className="group relative flex flex-col rounded-2xl border border-border/70 bg-background p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
+              className="group relative flex flex-col rounded-2xl border border-border/70 bg-background p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)] sm:p-7"
             >
               <div className="flex items-center justify-between">
                 <span className="font-serif text-sm italic text-muted-foreground">N°0{i + 1}</span>
                 <span className="h-1 w-1 rounded-full bg-roast/70 transition-all group-hover:w-6" />
               </div>
-              <h3 className="mt-6 font-serif text-[26px] leading-tight text-foreground">{p.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.note}</p>
+              <h3 className="mt-5 font-serif text-[22px] leading-tight text-foreground sm:mt-6 sm:text-[26px]">{p.name}</h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground sm:text-sm">{p.note}</p>
             </div>
           ))}
         </div>
@@ -296,14 +296,14 @@ function Presets() {
 
 function GeneratorSection() {
   return (
-    <section id="generator" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 max-w-2xl">
+    <section id="generator" className="border-t border-border/60 scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 max-w-2xl sm:mb-14">
           <Eyebrow>The generator</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Built for the rhythm of a <span className="italic text-roast">café day.</span>
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:text-lg">
             Pick a voice, drop in today's pastry or pour-over, and get a complete caption set — main copy, short CTA, hashtags, and a story-sized overlay.
           </p>
         </div>
@@ -316,8 +316,8 @@ function GeneratorSection() {
 function Samples() {
   return (
     <section id="samples" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden rounded-[20px] border border-border/70 shadow-[var(--shadow-cup)]">
               <img
@@ -332,26 +332,26 @@ function Samples() {
           </div>
           <div>
             <Eyebrow>Sample outputs</Eyebrow>
-            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
               Captions, the way <span className="italic text-roast">good cafés</span> write them.
             </h2>
-            <div className="mt-10 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-4 sm:mt-10">
               {samples.map((s) => (
                 <figure
                   key={s.item}
-                  className="rounded-2xl border border-border/70 bg-background p-6 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
+                  className="rounded-2xl border border-border/70 bg-background p-5 transition-shadow hover:shadow-[var(--shadow-soft)] sm:p-7"
                 >
-                  <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground sm:mb-4">
                     <span className="text-roast">{s.voice}</span>
                     <span>{s.platform}</span>
                   </div>
                   <div className="mb-3 text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80">
                     {s.item}
                   </div>
-                  <blockquote className="whitespace-pre-line font-serif text-[19px] leading-snug text-foreground sm:text-[21px]">
+                  <blockquote className="whitespace-pre-line font-serif text-[17px] leading-snug text-foreground sm:text-[21px]">
                     {s.text}
                   </blockquote>
-                  <figcaption className="mt-5 border-t border-border/60 pt-4">
+                  <figcaption className="mt-4 border-t border-border/60 pt-4 sm:mt-5">
                     <p className="font-serif text-[15px] italic text-roast">{s.cta}</p>
                     <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
                       {s.hashtags.map((h) => `#${h}`).join("  ")}
@@ -397,10 +397,10 @@ const tiers = [
 function Pricing() {
   return (
     <section id="pricing" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 max-w-2xl">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 max-w-2xl sm:mb-14">
           <Eyebrow>Pricing</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Honest pricing. <span className="italic text-roast">Like a good menu.</span>
           </h2>
         </div>
@@ -408,7 +408,7 @@ function Pricing() {
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`relative flex flex-col rounded-3xl border p-8 transition-all duration-300 sm:p-9 ${
+              className={`relative flex flex-col rounded-3xl border p-7 transition-all duration-300 sm:p-9 ${
                 t.featured
                   ? "border-roast/40 bg-primary text-primary-foreground shadow-[var(--shadow-cup)]"
                   : "border-border/70 bg-background hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
@@ -461,10 +461,10 @@ function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section id="faq" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 text-center">
+      <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 text-center sm:mb-14">
           <Eyebrow>Frequently asked</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Questions, answered <span className="italic text-roast">slowly.</span>
           </h2>
         </div>
@@ -526,12 +526,46 @@ function Footer() {
   );
 }
 
+function MobileStickyCta() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const gen = document.getElementById("generator");
+      if (!gen) return setVisible(window.scrollY > 320);
+      const rect = gen.getBoundingClientRect();
+      // Hide when generator section is on screen
+      const onScreen = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+      setVisible(window.scrollY > 320 && !onScreen);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 transition-all duration-300 md:hidden ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      }`}
+    >
+      <div className="pointer-events-auto mx-auto flex max-w-md items-center justify-between gap-3 rounded-full border border-border/70 bg-background/90 px-2 py-2 shadow-[var(--shadow-lift)] backdrop-blur-xl">
+        <span className="pl-3 font-serif text-[13px] text-foreground">Brew your caption</span>
+        <a
+          href="#generator"
+          className="inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-4 text-[12px] font-medium tracking-wide text-primary-foreground transition-colors hover:bg-espresso"
+        >
+          Open <ArrowRight className="h-3 w-3" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Toaster position="bottom-right" richColors closeButton />
+      <Toaster position="top-center" richColors closeButton />
       <Nav />
-      <main>
+      <main className="pb-24 md:pb-0">
         <Hero />
         <Presets />
         <GeneratorSection />
@@ -540,6 +574,7 @@ function Index() {
         <Faq />
       </main>
       <Footer />
+      <MobileStickyCta />
     </div>
   );
 }
