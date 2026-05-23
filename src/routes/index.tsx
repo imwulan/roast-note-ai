@@ -526,12 +526,46 @@ function Footer() {
   );
 }
 
+function MobileStickyCta() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const gen = document.getElementById("generator");
+      if (!gen) return setVisible(window.scrollY > 320);
+      const rect = gen.getBoundingClientRect();
+      // Hide when generator section is on screen
+      const onScreen = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+      setVisible(window.scrollY > 320 && !onScreen);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 transition-all duration-300 md:hidden ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      }`}
+    >
+      <div className="pointer-events-auto mx-auto flex max-w-md items-center justify-between gap-3 rounded-full border border-border/70 bg-background/90 px-2 py-2 shadow-[var(--shadow-lift)] backdrop-blur-xl">
+        <span className="pl-3 font-serif text-[13px] text-foreground">Brew your caption</span>
+        <a
+          href="#generator"
+          className="inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-4 text-[12px] font-medium tracking-wide text-primary-foreground transition-colors hover:bg-espresso"
+        >
+          Open <ArrowRight className="h-3 w-3" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Toaster position="bottom-right" richColors closeButton />
+      <Toaster position="top-center" richColors closeButton />
       <Nav />
-      <main>
+      <main className="pb-24 md:pb-0">
         <Hero />
         <Presets />
         <GeneratorSection />
@@ -540,6 +574,7 @@ function Index() {
         <Faq />
       </main>
       <Footer />
+      <MobileStickyCta />
     </div>
   );
 }
