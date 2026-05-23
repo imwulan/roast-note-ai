@@ -166,7 +166,7 @@ export function CaptionGenerator() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-10">
+    <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-10">
       <form
         onSubmit={submit}
         className="relative overflow-hidden rounded-[20px] border border-border/70 bg-cream/70 p-5 shadow-[var(--shadow-soft)] grain sm:rounded-[24px] sm:p-9"
