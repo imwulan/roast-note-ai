@@ -461,10 +461,10 @@ function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section id="faq" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 text-center">
+      <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 text-center sm:mb-14">
           <Eyebrow>Frequently asked</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Questions, answered <span className="italic text-roast">slowly.</span>
           </h2>
         </div>
