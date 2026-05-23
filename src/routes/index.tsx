@@ -296,14 +296,14 @@ function Presets() {
 
 function GeneratorSection() {
   return (
-    <section id="generator" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 max-w-2xl">
+    <section id="generator" className="border-t border-border/60 scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 max-w-2xl sm:mb-14">
           <Eyebrow>The generator</Eyebrow>
-          <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
             Built for the rhythm of a <span className="italic text-roast">café day.</span>
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:text-lg">
             Pick a voice, drop in today's pastry or pour-over, and get a complete caption set — main copy, short CTA, hashtags, and a story-sized overlay.
           </p>
         </div>
