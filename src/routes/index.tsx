@@ -262,15 +262,15 @@ function Hero() {
 function Presets() {
   return (
     <section id="presets" className="border-t border-border/60 bg-cream/50">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-28">
+        <div className="mb-10 grid gap-6 sm:mb-14 sm:gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-end">
           <div>
             <Eyebrow>Brand voice presets</Eyebrow>
-            <h2 className="mt-5 font-serif text-[34px] leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+            <h2 className="mt-4 font-serif text-[28px] leading-[1.08] tracking-[-0.02em] sm:mt-5 sm:text-5xl">
               Four voices, each tuned to a <span className="italic text-roast">kind of café.</span>
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="text-[15px] leading-relaxed text-muted-foreground sm:text-lg">
             Curated from the cafés we admire — not from a list of buzzwords. Choose one and every caption is written in that register.
           </p>
         </div>
@@ -278,14 +278,14 @@ function Presets() {
           {presets.map((p, i) => (
             <div
               key={p.name}
-              className="group relative flex flex-col rounded-2xl border border-border/70 bg-background p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
+              className="group relative flex flex-col rounded-2xl border border-border/70 bg-background p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)] sm:p-7"
             >
               <div className="flex items-center justify-between">
                 <span className="font-serif text-sm italic text-muted-foreground">N°0{i + 1}</span>
                 <span className="h-1 w-1 rounded-full bg-roast/70 transition-all group-hover:w-6" />
               </div>
-              <h3 className="mt-6 font-serif text-[26px] leading-tight text-foreground">{p.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.note}</p>
+              <h3 className="mt-5 font-serif text-[22px] leading-tight text-foreground sm:mt-6 sm:text-[26px]">{p.name}</h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground sm:text-sm">{p.note}</p>
             </div>
           ))}
         </div>
