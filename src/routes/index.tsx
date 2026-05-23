@@ -408,7 +408,7 @@ function Pricing() {
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`relative flex flex-col rounded-3xl border p-8 transition-all duration-300 sm:p-9 ${
+              className={`relative flex flex-col rounded-3xl border p-7 transition-all duration-300 sm:p-9 ${
                 t.featured
                   ? "border-roast/40 bg-primary text-primary-foreground shadow-[var(--shadow-cup)]"
                   : "border-border/70 bg-background hover:-translate-y-0.5 hover:border-roast/40 hover:shadow-[var(--shadow-lift)]"
