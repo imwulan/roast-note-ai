@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { toast, Toaster } from "sonner";
+import { Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthShell, fieldClass, primaryBtn } from "@/components/AuthShell";
 
