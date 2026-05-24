@@ -79,6 +79,24 @@ export function CaptionGenerator() {
   const [history, setHistory] = useState<GeneratedOutput[]>([]);
   const signatureRef = useRef<string>("");
 
+  const loadingMessages = [
+    "Brewing your voice…",
+    "Grinding today's tone…",
+    "Preparing your morning story…",
+    "Steeping the right words…",
+    "Folding in the details…",
+    "Pouring something warm…",
+  ];
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!loading) return;
+    const interval = setInterval(() => {
+      setMessageIndex((i) => (i + 1) % loadingMessages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [loading]);
+
   const runGenerate = async (mode: "fresh" | "regenerate") => {
     if (!product.trim()) {
       toast.error("Add a product or menu item first");
