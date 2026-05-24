@@ -264,11 +264,21 @@ export function CaptionGenerator() {
                 <div className="steam-cup" />
               </div>
               <div className="flex flex-col items-center gap-2">
-                <span className="font-serif text-[18px] leading-tight shimmer-text sm:text-[20px]">
-                  Brewing your brand voice…
+                <span
+                  key={messageIndex}
+                  className="font-serif text-[18px] leading-tight shimmer-text animate-text-enter sm:text-[20px]"
+                >
+                  {loadingMessages[messageIndex]}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/80">
-                  Pulling the shot
+                  {[
+                    "Pulling the shot",
+                    "Warming the cup",
+                    "Checking the grind",
+                    "Tasting the pour",
+                    "Dialing it in",
+                    "Ready soon",
+                  ][messageIndex]}
                 </span>
               </div>
             </div>
