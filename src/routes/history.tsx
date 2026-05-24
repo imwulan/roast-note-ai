@@ -87,23 +87,33 @@ function HistoryPage() {
 
         <div className="mt-12">
           {loading || authLoading ? (
-            <p className="text-sm text-muted-foreground">Loading…</p>
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-cream/30 p-12 text-center">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-cream">
+                <Coffee className="h-4 w-4 text-roast animate-pulse" />
+              </div>
+              <p className="font-serif text-2xl leading-tight text-foreground">
+                Gathering your <span className="italic">archive</span>
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                One moment while we pull every story you've brewed.
+              </p>
+            </div>
           ) : rows && rows.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-border/70 bg-cream/30 p-12 text-center">
               <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-cream">
                 <Sparkles className="h-4 w-4 text-roast" />
               </div>
               <p className="font-serif text-2xl leading-tight text-foreground">
-                Nothing here <span className="italic">yet.</span>
+                Your first café story <span className="italic">starts here.</span>
               </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Generate your first caption and it'll be saved here automatically.
+              <p className="mt-3 max-w-sm mx-auto text-sm leading-relaxed text-muted-foreground">
+                Every pour-over, every cardamom bun, every morning you open early — it all deserves words that feel like yours. Generate something beautiful and it will live here.
               </p>
               <Link
                 to="/"
                 className="mt-6 inline-flex h-11 items-center rounded-full bg-primary px-6 text-[12px] font-medium tracking-wide text-primary-foreground transition-all hover:bg-espresso"
               >
-                Open the generator
+                Write your first caption
               </Link>
             </div>
           ) : (
