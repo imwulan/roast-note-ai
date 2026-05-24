@@ -226,13 +226,13 @@ export function CaptionGenerator() {
         {!result && !loading && (
           <div className="flex h-full min-h-[280px] flex-col items-center justify-center rounded-[20px] border border-dashed border-border/70 bg-background/40 p-8 text-center sm:min-h-[440px] sm:rounded-[24px] sm:p-10">
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-cream">
-              <Sparkles className="h-4 w-4 text-roast" />
+              <Coffee className="h-4 w-4 text-roast" />
             </div>
             <p className="font-serif text-[22px] leading-tight text-foreground sm:text-[26px]">
-              Your captions <span className="italic">appear here.</span>
+              A quiet counter, <span className="italic">waiting.</span>
             </p>
             <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-muted-foreground">
-              Fill in the form and we'll write copy that matches your café's voice — sensory, considered, never generic.
+              Tell us what's on the menu today — a pour-over, a pastry, a new seasonal blend — and we'll write copy that sounds like your café, not a chatbot.
             </p>
           </div>
         )}
