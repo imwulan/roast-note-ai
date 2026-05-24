@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { Copy, Sparkles, Loader2, Check, ArrowRight, RefreshCw, Coffee } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -78,6 +78,24 @@ export function CaptionGenerator() {
   const [result, setResult] = useState<GeneratedOutput | null>(null);
   const [history, setHistory] = useState<GeneratedOutput[]>([]);
   const signatureRef = useRef<string>("");
+
+  const loadingMessages = [
+    "Brewing your voice…",
+    "Grinding today's tone…",
+    "Preparing your morning story…",
+    "Steeping the right words…",
+    "Folding in the details…",
+    "Pouring something warm…",
+  ];
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!loading) return;
+    const interval = setInterval(() => {
+      setMessageIndex((i) => (i + 1) % loadingMessages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const runGenerate = async (mode: "fresh" | "regenerate") => {
     if (!product.trim()) {
@@ -246,11 +264,21 @@ export function CaptionGenerator() {
                 <div className="steam-cup" />
               </div>
               <div className="flex flex-col items-center gap-2">
-                <span className="font-serif text-[18px] leading-tight shimmer-text sm:text-[20px]">
-                  Brewing your brand voice…
+                <span
+                  key={messageIndex}
+                  className="font-serif text-[18px] leading-tight shimmer-text animate-text-enter sm:text-[20px]"
+                >
+                  {loadingMessages[messageIndex]}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground/80">
-                  Pulling the shot
+                  {[
+                    "Pulling the shot",
+                    "Warming the cup",
+                    "Checking the grind",
+                    "Tasting the pour",
+                    "Dialing it in",
+                    "Ready soon",
+                  ][messageIndex]}
                 </span>
               </div>
             </div>
